@@ -200,6 +200,13 @@ func AssetInfo(name string) (os.FileInfo, error) {
 	return nil, fmt.Errorf("AssetInfo %%s not found", name)
 }
 
+// AssetExists returns if asset exists for the given name.
+func AssetExists(name string) bool {
+	cannonicalName := strings.Replace(name, "\\", "/", -1)
+	_, ok := _bindata[cannonicalName]
+	return ok
+}
+
 // AssetNames returns the names of the assets.
 func AssetNames() []string {
 	names := make([]string, 0, len(_bindata))
